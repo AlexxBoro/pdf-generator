@@ -5,7 +5,4 @@
 
 /myapp/db.sqlite3
 
-/myapp/__pycache__
-/myapp/myapp/__pycache__
-/myapp/pdfgenerator/__pycache__
-/myapp/pdfgenerator/migrations/__pycache__
+/**/__pycache__

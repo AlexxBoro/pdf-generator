@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Index</title>
+  </head>
+  <body>
+    <header class="header">
+      <button id="generate">generate PDF</button>
+    </header>
+    <script>
+      const generatePDF = () => {
+        fetch("/pdf/").then((data) => console.log(data));
+      };
+      const generateBtn = document.getElementById("generate");
+      generateBtn.addEventListener("click", generatePDF);
+    </script>
+  </body>
+</html>

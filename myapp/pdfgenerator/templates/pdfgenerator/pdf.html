@@ -1,9 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title>Test</title>
     <style>
-      h1 {
-        text-align: center;
+      .title {
+        color: #2b417a;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: "20px";
+        font-weight: 400;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .logo {
+        background: white url("../../static/pdfgenerator/images/logo.png")
+          no-repeat;
       }
 
       table {
@@ -18,29 +32,27 @@
         border: 1px solid;
       }
     </style>
+    {% load static %}
+    <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'pdfgenerator/style.css' %}"
+    /> -->
   </head>
   <body>
-    <h1>List of people</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>hulahop</td>
-        </tr>
-        {% for person in people %}
-        <tr>
-          <td>{{ person.name }}</td>
-          <td>{{ person.surname }}</td>
-          <td>{{ person.age }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <header class="header">
+      <img src="{% static 'pdfgenerator/images/logo.png' %}" alt="" />
+      <button id="generate">generate</button>
+    </header>
+    <h1 class="title">{{input_data.name}}</h1>
+    <script>
+      const generatePDF = () => {
+        fetch("/pdfgenerator/pdf/")
+          .then((response) => response.json())
+          .then((data) => console.log("fetch data:", data));
+      };
+      const generateBtn = document.getElementById("generate");
+      generateBtn.addEventListener("click", generatePDF);
+    </script>
   </body>
 </html>
