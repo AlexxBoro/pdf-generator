@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Template 1</title>
+    <style>
+      {% include './template_1.2.css' %}
+    </style>
+    {% load static %} {% load humanize %}
+  </head>
+  <body>
+    <header class="header">
+      <img src="{% static 'pdfgenerator/images/logo.svg' %}" alt="" />
+      <div class="header__title">{{input_data.name}}</div>
+    </header>
+    <h1 class="title">Top 3 posts</h1>
+    <h2 class="subtitle">These posts were amazing!</h2>
+
+    <div class="container">
+      {% for item in input_data.top_posts %}
+      <div class="container__box">
+        <div class="container__box__top">
+          <div class="container__box__top__left">
+            <img
+              class="container__box__top__avatar"
+              alt="avatar"
+              src="{% static 'pdfgenerator/images/cat_pic.jpeg' %}"
+            />
+            <div class="container__box__top__user-info">
+              <p>{{ item.creator.name }}</p>
+              <p>@{{item.creator.username}}</p>
+            </div>
+          </div>
+          <div class="container__box__top__number">#{{ forloop.counter }}</div>
+        </div>
+        <div>
+          <img
+            class="container__box__top__img"
+            alt="profile picture"
+            src="{% static 'pdfgenerator/images/woman.jpeg' %}"
+          />
+        </div>
+
+        <div class="container__box__bottom">
+          <div class="container__box__bottom__stats">
+            <div class="container__box__bottom__stats__box">
+              <img
+                class="container__box__bottom__stats__icon"
+                alt="icon"
+                src="{% static 'pdfgenerator/images/icon-info-green.svg' %}"
+              />
+              <p class="container__box__bottom__stats__box__title">
+                Engagement:
+              </p>
+            </div>
+            <div class="container__box__bottom__stats__box">
+              <div class="progress-bar">
+                <div
+                  class="progress-bar__progress"
+                  style="width: {{item.engagement}}%"
+                ></div>
+              </div>
+              <span class="container__box__bottom__stats__box__number"
+                >{{item.engagement|floatformat:0}}</span
+              >
+            </div>
+          </div>
+
+          <div class="container__box__bottom__stats">
+            <div class="container__box__bottom__stats__box">
+              <img
+                class="container__box__bottom__stats__icon"
+                alt="icon"
+                src="{% static 'pdfgenerator/images/icon-info-green.svg' %}"
+              />
+              <p class="container__box__bottom__stats__box__title">
+                Compatibility:
+              </p>
+            </div>
+            <div class="container__box__bottom__stats__box">
+              <div class="progress-bar">
+                <div
+                  class="progress-bar__progress"
+                  style="width: {{item.compatibility}}%"
+                ></div>
+              </div>
+              <span class="container__box__bottom__stats__box__number"
+                >{{item.compatibility|floatformat:0}}</span
+              >
+            </div>
+          </div>
+
+          <div class="container__box__bottom__stats">
+            <div class="container__box__bottom__stats__box">
+              <img
+                class="container__box__bottom__stats__icon"
+                alt="icon"
+                src="{% static 'pdfgenerator/images/icon-info-green.svg' %}"
+              />
+              <p class="container__box__bottom__stats__box__title">Virality:</p>
+            </div>
+            <div class="container__box__bottom__stats__box">
+              <div class="progress-bar">
+                <div
+                  class="progress-bar__progress"
+                  style="width: {{item.virality}}%"
+                ></div>
+              </div>
+              <span class="container__box__bottom__stats__box__number"
+                >{{item.virality|floatformat:0}}</span
+              >
+            </div>
+          </div>
+
+          <div class="container__box__bottom__stats">
+            <div class="container__box__bottom__stats__box">
+              <img
+                class="container__box__bottom__stats__icon"
+                alt="icon"
+                src="{% static 'pdfgenerator/images/icon-info-green.svg' %}"
+              />
+              <p class="container__box__bottom__stats__box__title">
+                Awareness:
+              </p>
+            </div>
+            <div class="container__box__bottom__stats__box">
+              <div class="progress-bar">
+                <div
+                  class="progress-bar__progress"
+                  style="width: {{item.awareness}}%"
+                ></div>
+              </div>
+              <span class="container__box__bottom__stats__box__number"
+                >{{item.awareness|floatformat:0}}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

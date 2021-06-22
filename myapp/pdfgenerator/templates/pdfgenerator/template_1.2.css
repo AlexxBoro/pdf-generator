@@ -1,0 +1,142 @@
+@page {
+  size: landscape;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  margin-top: -40px;
+}
+
+.header__title {
+  color: gray;
+}
+
+.title {
+  color: #021c52;
+  font-size: 24px;
+  margin-bottom: -8px;
+}
+
+.subtitle {
+  font-weight: 500;
+  color: gray;
+  margin-bottom: 32px;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.container__box {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 31%;
+}
+
+.container__box__top {
+  margin: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container__box__top__avatar {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+}
+
+.container__box__top__number {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border: 2px solid #00c4a7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #005749;
+}
+
+.container__box__top__left {
+  display: flex;
+  flex-grow: 1;
+}
+
+.container__box__top__user-info p {
+  margin: 0 0 0 8px;
+  padding: 0;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.container__box__top__user-info p:nth-of-type(2) {
+  font-size: 14px;
+  font-weight: 600;
+  color: gray;
+}
+
+.container__box__top__img {
+  height: 280px;
+  width: 100%;
+  object-fit: cover;
+  object-position: 0 10%;
+}
+
+.container__box__bottom {
+  margin: 16px;
+}
+
+.container__box__bottom__stats {
+  display: flex;
+  align-items: center;
+  color: gray;
+  font-size: 14px;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.container__box__bottom__stats__box {
+  display: flex;
+  align-items: center;
+}
+
+.container__box__bottom__stats__box__title {
+  padding-left: 8px;
+  margin: 0;
+}
+
+.container__box__bottom__stats__icon {
+  width: 16px;
+  height: 16px;
+  object-fit: cover;
+}
+
+.progress-bar {
+  width: 100px;
+  height: 5px;
+  border-radius: 15px;
+  background-color: lightgray;
+  position: relative;
+  margin-right: 8px;
+}
+
+.progress-bar__progress {
+  background-color: orange;
+  height: 5px;
+  border-radius: 15px;
+  position: absolute;
+}
+
+.container__box__bottom__stats__box__number {
+  width: 20px;
+  text-align: right;
+}

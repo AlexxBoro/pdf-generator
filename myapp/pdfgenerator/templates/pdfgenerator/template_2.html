@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Template 2</title>
+    <style>
+      {% include './template_2.css' %}
+    </style>
+    {% load static %}
+  </head>
+  <body>
+    <header class="header">
+      <img src="{% static 'pdfgenerator/images/logo.svg' %}" alt="" />
+      <div class="header__title">INVOICE</div>
+    </header>
+
+    <div class="info-container">
+      <div class="info-container__box">
+        <div class="bill-to">Bill to:</div>
+        <div class="bill-to__line">Michel Smith</div>
+        <div class="bill-to__line">87 Private st, Seattle, WA</div>
+        <div class="bill-to__line">allen@gmail.com</div>
+        <div class="bill-to__line">666-777-8881</div>
+      </div>
+      <div class="info-container__box">
+        <table>
+          <tr>
+            <td class="info-title">Invoice No:</td>
+            <td>123456</td>
+          </tr>
+          <tr>
+            <td class="info-title">Invoice Date:</td>
+            <td>19/06/2021</td>
+          </tr>
+          <tr>
+            <td class="info-title">Due Date:</td>
+            <td>27/06/2021</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <table class="table-main">
+      <thead>
+        <tr class="title-row">
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Unit price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for item in input_data.items %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unit_price }}</td>
+          <td>{{ item.total_price }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <table class="table-summary">
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="info-title">Subtotal</td>
+        <td>{{ input_data.subtotal }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="info-title">Tax rate</td>
+        <td>{{ input_data.tax_rate }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="info-title">Total tax</td>
+        <td>{{ input_data.total_tax }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="info-title">Total</td>
+        <td>{{ input_data.total }}</td>
+      </tr>
+    </table>
+  </body>
+</html>

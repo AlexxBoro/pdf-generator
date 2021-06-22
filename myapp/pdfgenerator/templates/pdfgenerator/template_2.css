@@ -1,0 +1,58 @@
+@page {
+  size: landscape;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 70px;
+}
+
+.header__title {
+  color: black;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 70px;
+}
+
+.info-container__box {
+  width: 50%;
+}
+
+.bill-to {
+  text-decoration: underline;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.bill-to__line {
+  margin-bottom: 4px;
+}
+
+.title-row {
+  padding-bottom: 4px;
+}
+
+.info-title {
+  font-weight: 600;
+}
+
+.table-main {
+  width: 70%;
+  margin-bottom: 32px;
+}
+
+.table-summary {
+  width: 70%;
+  margin-left: 32px;
+}

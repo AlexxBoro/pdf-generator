@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Template 1</title>
+    <style>
+      {% include './template_1.1.css' %}
+    </style>
+    {% load static %}
+  </head>
+  <body>
+    <header class="header">
+      <img src="{% static 'pdfgenerator/images/logo.svg' %}" alt="" />
+      <div class="header__title">{{input_data.name}}</div>
+    </header>
+    <h1 class="title">{{input_data.name}}</h1>
+    <h2 class="subtitle">Summary</h2>
+
+    <div class="container">
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-info.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">Used budget</div>
+          <div class="container__box__data">{{ input_data.used_budget }}</div>
+        </div>
+      </div>
+
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-info.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">CPE</div>
+          <div class="container__box__data">{{ input_data.cpe }}</div>
+        </div>
+      </div>
+
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-info.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">CPM</div>
+          <div class="container__box__data">{{ input_data.cpm }}</div>
+        </div>
+      </div>
+
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-info.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">Total followers</div>
+          <div class="container__box__data">{{ input_data.followers }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-checkmark.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">Creators</div>
+          <div class="container__box__data">{{ input_data.creators }}</div>
+        </div>
+      </div>
+
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-checkmark.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">Applications</div>
+          <div class="container__box__data">{{ input_data.applications }}</div>
+        </div>
+      </div>
+
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-checkmark.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">Submissions</div>
+          <div class="container__box__data">{{ input_data.submissions }}</div>
+        </div>
+      </div>
+
+      <div class="container__box">
+        <img
+          class="container__box__icon"
+          alt=""
+          src="{% static 'pdfgenerator/images/icon-checkmark.svg' %}"
+        />
+        <div>
+          <div class="container__box__title">Reach</div>
+          <div class="container__box__data">{{ input_data.reach }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="container__box container__box--vertical">
+        <div class="container__box__title container__box__title--capitalized">
+          Impressions
+        </div>
+        <div class="container__box__data container__box__data--big">
+          {{ input_data.impressions }}
+        </div>
+      </div>
+
+      <div class="container__box container__box--vertical">
+        <div class="container__box__title container__box__title--capitalized">
+          Audience
+        </div>
+        <div class="container__box__data container__box__data--big">
+          {{ input_data.audience_female_share }}
+        </div>
+      </div>
+
+      <div class="container__box container__box--vertical">
+        <div class="container__box__title container__box__title--capitalized">
+          Budget
+        </div>
+        <div class="container__box__data container__box__data--big">
+          {{ input_data.budget }}
+        </div>
+      </div>
+
+      <div class="container__box container__box--vertical">
+        <div class="container__box__title container__box__title--capitalized">
+          Reach
+        </div>
+        <div class="container__box__data container__box__data--big">
+          {{ input_data.reach }}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

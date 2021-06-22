@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Index</title>
+    <title>PDF generator</title>
+    <style>
+      {% include './index.css' %}
+    </style>
   </head>
   <body>
-    <header class="header">
-      <button id="generate">generate PDF</button>
-    </header>
+    <h1>Choose template</h1>
+    <div class="container">
+      <div class="container__block">
+        <button id="generate_1" class="container__button">template 1</button>
+      </div>
+      <div class="container__block">
+        <button id="generate_2" class="container__button">template 2</button>
+      </div>
+    </div>
+    <p class="note">PDFs are saved under /pdfs directory.</p>
+
     <script>
-      const generatePDF = () => {
+      const generatePDF1 = () => {
         fetch("/pdf/").then((data) => console.log(data));
       };
-      const generateBtn = document.getElementById("generate");
-      generateBtn.addEventListener("click", generatePDF);
+      const generatePDF1Btn = document.getElementById("generate_1");
+      generatePDF1Btn.addEventListener("click", generatePDF1);
+
+      const generatePDF2 = () => {
+        fetch("/pdf2/").then((data) => console.log(data));
+      };
+      const generatePDF2Btn = document.getElementById("generate_2");
+      generatePDF2Btn.addEventListener("click", generatePDF2);
     </script>
   </body>
 </html>
