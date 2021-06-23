@@ -2,6 +2,7 @@
 /.vscode
 
 /myapp/pdfs
+/myapp/pdfgenerator/static/pdfgenerator/charts
 
 /myapp/db.sqlite3
 

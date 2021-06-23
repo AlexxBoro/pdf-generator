@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Template 1</title>
+    <style>
+      {% include './template_1.3.css' %}
+    </style>
+    {% load static %}
+  </head>
+  <body>
+    <header class="header">
+      <img src="{% static 'pdfgenerator/images/logo.svg' %}" alt="" />
+      <div class="header__title">{{input_data.name}}</div>
+    </header>
+    <h1 class="title">Audience</h1>
+    <div class="chart-box">
+      <div class="chart-box__title">age range</div>
+      <div class="img-container">
+        <img
+          class="chart-img"
+          alt="pie chart"
+          src="{% static 'pdfgenerator/charts/bar_chart.png' %}"
+        />
+      </div>
+    </div>
+  </body>
+</html>

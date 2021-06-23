@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Template 1</title>
+    <style>
+      {% include './template_1.4.css' %}
+    </style>
+    {% load static %}
+  </head>
+  <body>
+    <header class="header">
+      <img src="{% static 'pdfgenerator/images/logo.svg' %}" alt="" />
+      <div class="header__title">{{input_data.name}}</div>
+    </header>
+    <div class="charts-container">
+      <div class="chart-box">
+        <div class="chart-box__title">top countries</div>
+        <div class="img-container">
+          <img
+            class="chart-img"
+            alt="horizontal bar chart"
+            src="{% static 'pdfgenerator/charts/horizontal_bar_chart.png' %}"
+          />
+        </div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-box__title">gender</div>
+        <div class="img-container">
+          <img
+            class="chart-img"
+            alt="pie chart"
+            src="{% static 'pdfgenerator/charts/pie_chart.png' %}"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
