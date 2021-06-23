@@ -23,7 +23,7 @@
             <img
               class="container__box__top__avatar"
               alt="avatar"
-              src="{% static 'pdfgenerator/images/cat_pic.jpeg' %}"
+              src="{% static item.creator.image %}"
             />
             <div class="container__box__top__user-info">
               <p>{{ item.creator.name }}</p>
@@ -36,7 +36,7 @@
           <img
             class="container__box__top__img"
             alt="profile picture"
-            src="{% static 'pdfgenerator/images/woman.jpeg' %}"
+            src="{% static item.image %}"
           />
         </div>
 
