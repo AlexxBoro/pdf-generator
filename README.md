@@ -18,5 +18,5 @@ Currently, there are 2 different templates that can be generated from 2 hardcode
 - click on the appropriate button to generate a chosen PDF template
 - PDF files are saved under `/pdf` directory
 
-Templates were based on examples mentioned in the spec below, hovewer, there might be slight changes due top lack of data in dictionaries of charts library limitations.
+Templates were based on examples mentioned in the spec below, however, there might be slight changes due the lack of some data in the dictionaries or charts library limitations.
 https://docs.google.com/document/d/1TvC4tBhagMxqcWELHwKiSPQznG2fdhSYwchce0pwXRQ/edit#
