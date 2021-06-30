@@ -8,7 +8,7 @@ Currently, there are 2 different templates that can be generated from 2 hardcode
 - Python 3.9.4
 - Django 3.2.4
 - WeasyPrint 52.5
-- Pygal 2.4.0
+- Chart.js 3.4.0
 
 ### Quick start
 

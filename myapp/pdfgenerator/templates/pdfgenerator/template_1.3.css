@@ -27,12 +27,12 @@ body {
 .img-container {
   width: 100%;
   display: flex;
-  justify-content: center;
+  padding-top: 24px;
+  padding-left: 64px;
 }
 
 .chart-img {
   height: 400px;
-  width: auto;
   object-fit: contain;
 }
 

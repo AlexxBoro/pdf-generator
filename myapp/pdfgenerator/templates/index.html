@@ -5,6 +5,7 @@
     <style>
       {% include './index.css' %}
     </style>
+    {% load static %}
   </head>
   <body>
     <h1>Choose template</h1>
@@ -18,17 +19,238 @@
     </div>
     <p class="note">PDFs are saved under /pdfs directory.</p>
 
+    <!-- TODO: Is there a way to generate charts without rendering them to HTML template (display: hidden here would prevent them from appearing in PDF template) -->
+    <div>
+      <canvas id="chart_1"></canvas>
+    </div>
+
+    <div>
+      <canvas id="chart_2"></canvas>
+    </div>
+
+    <div>
+      <canvas id="chart_3"></canvas>
+    </div>
+
+    <script
+      type="text/javascript"
+      src="{% static 'pdfgenerator/chart_js/chart.min.js' %}"
+    ></script>
+
     <script>
-      const generatePDF1 = () => {
-        fetch("/pdf/").then((data) => console.log(data));
+      const generateHorizontalBarChart = (response) => {
+        const labels = [
+          "Morocco",
+          "Turkey",
+          "Indonesia",
+          "Italy",
+          "Mexico",
+          "Canada",
+          "Sweden",
+          "Australia",
+          "Russia",
+          "Germany",
+          "India",
+          "UK",
+          "Brazil",
+          "US",
+          "Finland",
+        ];
+
+        const data = {
+          labels: labels,
+          datasets: [
+            {
+              label: "Country share (%)",
+              backgroundColor: "#00c4a7",
+              data: [
+                response.input_data.countries["Morocco"],
+                response.input_data.countries["Turkey"],
+                response.input_data.countries["Indonesia"],
+                response.input_data.countries["Italy"],
+                response.input_data.countries["Mexico"],
+                response.input_data.countries["Canada"],
+                response.input_data.countries["Sweden"],
+                response.input_data.countries["Australia"],
+                response.input_data.countries["Russia"],
+                response.input_data.countries["Germany"],
+                response.input_data.countries["India"],
+                response.input_data.countries["UK"],
+                response.input_data.countries["Brazil"],
+                response.input_data.countries["US"],
+                response.input_data.countries["Finland"],
+              ],
+            },
+          ],
+        };
+
+        const config = {
+          type: "bar",
+          data,
+          options: {
+            indexAxis: "y",
+            plugins: {
+              legend: {
+                position: "bottom",
+              },
+            },
+            scales: {
+              x: {
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks: {
+                  stepSize: 20,
+                },
+              },
+            },
+          },
+        };
+
+        var myChart = new Chart(document.getElementById("chart_3"), config);
+        return myChart;
       };
-      const generatePDF1Btn = document.getElementById("generate_1");
-      generatePDF1Btn.addEventListener("click", generatePDF1);
+
+      const generatePieChart = (response) => {
+        const data = {
+          labels: ["Men", "Women"],
+          datasets: [
+            {
+              label: "Men and women",
+              data: [
+                response.input_data["audience_gender"][0]["number"],
+                response.input_data["audience_gender"][1]["number"],
+              ],
+              backgroundColor: ["#021c52", "#00c4a7"],
+              hoverOffset: 4,
+            },
+          ],
+        };
+
+        const config = {
+          type: "pie",
+          data: data,
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+        };
+
+        var myChart = new Chart(document.getElementById("chart_2"), config);
+        return myChart;
+      };
+
+      const generateBarChart = (response) => {
+        const ageRange = response.input_data.audience_age;
+
+        const labels = [
+          "13 - 17",
+          "18 - 24",
+          "25 - 34",
+          "35 - 44",
+          "45 - 54",
+          "55 - 64",
+          "65+",
+        ];
+
+        const data = {
+          labels: labels,
+          datasets: [
+            {
+              label: "Age group share (%)",
+
+              backgroundColor: "#00c4a7",
+              data: [
+                ageRange.group_1 * 100,
+                ageRange.group_2 * 100,
+                ageRange.group_3 * 100,
+                ageRange.group_4 * 100,
+                ageRange.group_5 * 100,
+                ageRange.group_6 * 100,
+                ageRange.group_7 * 100,
+              ],
+            },
+          ],
+        };
+
+        const config = {
+          type: "bar",
+          data,
+          options: {
+            plugins: {
+              legend: {
+                position: "bottom",
+              },
+            },
+            scales: {
+              y: {
+                suggestedMin: 0,
+                suggestedMax: 40,
+                ticks: {
+                  stepSize: 20,
+                },
+              },
+            },
+          },
+        };
+
+        var myChart = new Chart(document.getElementById("chart_1"), config);
+        return myChart;
+      };
+
+      const getDataForCharts = () => {
+        return new Promise((resolve, reject) => {
+          fetch("/data").then((response) =>
+            response.json().then((response) => {
+              let fetchedData = response;
+              console.log("fetchedData, ", fetchedData);
+              resolve(fetchedData);
+            })
+          );
+        });
+      };
+
+      let dataForCharts = "";
+      let chart_1ToBase64 = "";
+      let chart_2ToBase64 = "";
+      let chart_3ToBase64 = "";
+
+      getDataForCharts().then((data) => {
+        dataForCharts = data;
+        chart_1ToBase64 = generateBarChart(dataForCharts);
+        chart_2ToBase64 = generateHorizontalBarChart(dataForCharts);
+        chart_3ToBase64 = generatePieChart(dataForCharts);
+      });
+
+      const generatePDF1 = (chart_1, chart_2, chart_3) => {
+        fetch("/pdf/", {
+          method: "POST",
+          body: JSON.stringify({
+            chart_1: chart_1,
+            chart_2: chart_2,
+            chart_3: chart_3,
+          }),
+        }).then((result) => console.log("POST result: ", result));
+      };
 
       const generatePDF2 = () => {
-        fetch("/pdf2/").then((data) => console.log(data));
+        fetch("/pdf2/").then((result) => console.log(result));
       };
+
+      const generatePDF1Btn = document.getElementById("generate_1");
       const generatePDF2Btn = document.getElementById("generate_2");
+
+      generatePDF1Btn.addEventListener("click", () =>
+        generatePDF1(
+          chart_1ToBase64.toBase64Image(),
+          chart_2ToBase64.toBase64Image(),
+          chart_3ToBase64.toBase64Image()
+        )
+      );
       generatePDF2Btn.addEventListener("click", generatePDF2);
     </script>
   </body>

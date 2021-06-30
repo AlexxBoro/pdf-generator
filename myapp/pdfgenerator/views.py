@@ -1,14 +1,11 @@
 from django.http import HttpResponse
 from django.http import HttpResponse
 from django.template import loader
-from django.conf import settings
 from django.http import JsonResponse
-from io import BytesIO
-
-from weasyprint import HTML, CSS
-
-import pygal
-from pygal.style import Style
+from django.views.decorators.csrf import csrf_exempt
+import json
+import base64
+from weasyprint import HTML
 
 input_data_1 = {
     "name": "Wolt: Tue paikallisia ravintoloita",
@@ -133,171 +130,28 @@ input_data_2 = {
 }
 
 
+def get_data(request):
+    return JsonResponse({"input_data": input_data_1})
+
+
 def index(request):
-    html_string = loader.render_to_string("index.html")
+    html_string = loader.render_to_string("index.html", {"input_data": input_data_1})
 
     return HttpResponse(html_string)
 
 
-def generate_bar_chart():
-    custom_style = Style(
-        background="transparent",
-        plot_background="transparent",
-        font_family="Arial, Helvetica, sans-serif",
-        value_label_font_size=24,
-        label_font_size=24,
-        major_label_font_size=24,
-        colors=(
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-        ),
-    )
-
-    bar_chart = pygal.Bar(
-        show_legend=False,
-        style=custom_style,
-        width=1400,
-        range=(0, 40),
-    )
-
-    bar_chart.x_labels = (
-        "13 - 17",
-        "18 - 24",
-        "25 - 34",
-        "35 - 44",
-        "45 - 54",
-        "55 - 64",
-        "65+",
-    )
-
-    bar_chart.add(
-        "line",
-        [
-            input_data_1["audience_age"]["group_1"] * 100,
-            input_data_1["audience_age"]["group_2"] * 100,
-            input_data_1["audience_age"]["group_3"] * 100,
-            input_data_1["audience_age"]["group_4"] * 100,
-            input_data_1["audience_age"]["group_5"] * 100,
-            input_data_1["audience_age"]["group_6"] * 100,
-            input_data_1["audience_age"]["group_7"] * 100,
-        ],
-    )
-
-    bar_chart.render_to_png("pdfgenerator/static/pdfgenerator/charts/bar_chart.png")
-
-
-def generate_pie_chart():
-    custom_style = Style(
-        background="transparent",
-        plot_background="transparent",
-        colors=("#021c52", "#00c4a7"),
-        font_family="Arial, Helvetica, sans-serif",
-        legend_font_size=24,
-        value_label_font_size=24,
-        label_font_size=24,
-        major_label_font_size=24,
-    )
-
-    pie_chart = pygal.Pie(
-        legend_at_bottom=True,
-        legend_box_size=16,
-        legend_at_bottom_columns=1,
-        style=custom_style,
-    )
-
-    men = input_data_1["audience_gender"][0]["number"]
-    women = input_data_1["audience_gender"][1]["number"]
-
-    pie_chart.add("Men", men)
-    pie_chart.add("Women", women)
-
-    pie_chart.render_to_png("pdfgenerator/static/pdfgenerator/charts/pie_chart.png")
-
-
-def generate_horizontal_bar_chart():
-    custom_style = Style(
-        background="transparent",
-        plot_background="transparent",
-        colors=(
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-            "#00c4a7",
-        ),
-        font_family="Arial, Helvetica, sans-serif",
-        value_label_font_size=24,
-        label_font_size=24,
-        major_label_font_size=24,
-    )
-
-    horizontal_bar_chart = pygal.HorizontalBar(
-        show_legend=False,
-        range=(0, 100),
-        style=custom_style,
-    )
-
-    horizontal_bar_chart.x_labels = (
-        "Finland",
-        "US",
-        "Brazil",
-        "UK",
-        "India",
-        "Germany",
-        "Russia",
-        "Australia",
-        "Sweden",
-        "Canada",
-        "Mexico",
-        "Italy",
-        "Indonesia",
-        "Turkey",
-        "Morocco",
-    )
-
-    horizontal_bar_chart.add(
-        "line",
-        [
-            input_data_1["countries"]["Finland"],
-            input_data_1["countries"]["US"],
-            input_data_1["countries"]["Brazil"],
-            input_data_1["countries"]["UK"],
-            input_data_1["countries"]["India"],
-            input_data_1["countries"]["Germany"],
-            input_data_1["countries"]["Russia"],
-            input_data_1["countries"]["Australia"],
-            input_data_1["countries"]["Sweden"],
-            input_data_1["countries"]["Canada"],
-            input_data_1["countries"]["Mexico"],
-            input_data_1["countries"]["Italy"],
-            input_data_1["countries"]["Indonesia"],
-            input_data_1["countries"]["Turkey"],
-            input_data_1["countries"]["Morocco"],
-        ],
-    )
-
-    horizontal_bar_chart.render_to_png(
-        "pdfgenerator/static/pdfgenerator/charts/horizontal_bar_chart.png"
-    )
-
-
+@csrf_exempt
 def generate_pdf(request):
     """Generate PDF 1."""
+
+    # parsing 'request.body' from POST into JSON
+    body_unicode = request.body.decode("utf-8")
+    body = json.loads(body_unicode)
+    content = body
+
+    chart_1 = content["chart_1"]
+    chart_2 = content["chart_2"]
+    chart_3 = content["chart_3"]
 
     html_string = loader.render_to_string(
         "pdfgenerator/template_1.1.html",
@@ -309,11 +163,11 @@ def generate_pdf(request):
     )
     html_string3 = loader.render_to_string(
         "pdfgenerator/template_1.3.html",
-        {"input_data": input_data_1},
+        {"input_data": input_data_1, "chart_1": chart_1},
     )
     html_string4 = loader.render_to_string(
         "pdfgenerator/template_1.4.html",
-        {"input_data": input_data_1},
+        {"input_data": input_data_1, "chart_2": chart_2, "chart_3": chart_3},
     )
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
@@ -326,11 +180,7 @@ def generate_pdf(request):
     pdf3 = html3.render()
     pdf4 = html4.render()
 
-    generate_bar_chart()
-    generate_pie_chart()
-    generate_horizontal_bar_chart()
-
-    # combines 4 pages into 1 PDF document
+    # combining 4 pages into 1 PDF document
     val = []
 
     for doc in pdf1, pdf2, pdf3, pdf4:
@@ -339,7 +189,13 @@ def generate_pdf(request):
 
     pdf1.copy(val).write_pdf("./pdfs/template_1.pdf")
 
-    return HttpResponse("pdf has been saved inside /pdfs folder")
+    # byte = pdf1.copy(val).write_pdf("./pdfs/template_1.pdf")
+    # encoded = base64.b64encode(byte)
+    # encoded = encoded.decode("utf-8")
+    # return JsonResponse(encoded)
+
+    # return HttpResponse("pdf has been saved inside /pdfs folder")
+    return HttpResponse(html_string3)
 
 
 def generate_pdf2(request):

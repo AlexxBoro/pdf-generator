@@ -24,11 +24,15 @@ body {
   justify-content: center;
 }
 
-.chart-img {
-  height: 400px;
-  width: 400px;
+.chart-img-pie {
   object-fit: contain;
-  margin: -24px auto -40px 20px;
+  width: 600px;
+  height: 300px;
+}
+
+.chart-img-horizontal {
+  object-fit: contain;
+  width: 450px;
 }
 
 .charts-container {
