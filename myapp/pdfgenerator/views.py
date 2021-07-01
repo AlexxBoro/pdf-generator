@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import base64
 from weasyprint import HTML
-from .dictionaries import input_data_1, input_data_1
+from .dictionaries import input_data_1, input_data_2
 
 
 def get_data(request):
@@ -69,15 +69,11 @@ def generate_pdf(request):
         for p in doc.pages:
             val.append(p)
 
-    pdf1.copy(val).write_pdf("./pdfs/template_1.pdf")
+    binary_representation = pdf1.copy(val).write_pdf()
+    encoded = base64.b64encode(binary_representation)
+    encoded = encoded.decode("utf-8")
 
-    # byte = pdf1.copy(val).write_pdf("./pdfs/template_1.pdf")
-    # encoded = base64.b64encode(byte)
-    # encoded = encoded.decode("utf-8")
-    # return JsonResponse(encoded)
-
-    # return HttpResponse("pdf has been saved inside /pdfs folder")
-    return HttpResponse(html_string3)
+    return JsonResponse({"encoded": encoded})
 
 
 def generate_pdf2(request):
@@ -90,6 +86,8 @@ def generate_pdf2(request):
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
 
-    html.write_pdf("./pdfs/template_2.pdf")
+    binary_representation = html.write_pdf()
+    encoded = base64.b64encode(binary_representation)
+    encoded = encoded.decode("utf-8")
 
-    return HttpResponse("pdf2 has been saved inside /pdfs folder")
+    return JsonResponse({"encoded": encoded})

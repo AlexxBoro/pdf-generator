@@ -17,10 +17,7 @@
         <button id="generate_2" class="container__button">template 2</button>
       </div>
     </div>
-    <p class="note">PDFs are saved under /pdfs directory.</p>
-
     <div class="hidden-charts-container">
-      <div class="hidden-charts-cover"></div>
       <div>
         <canvas id="bar_chart"></canvas>
       </div>
@@ -163,7 +160,6 @@
           datasets: [
             {
               label: "Age group share (%)",
-
               backgroundColor: "#00c4a7",
               data: [
                 ageRange.group_1 * 100,
@@ -236,13 +232,29 @@
             horizontal_bar_chart: horizontal_bar_chart,
             pie_chart: pie_chart,
           }),
-        }).then((result) => console.log("POST result: ", result));
+        })
+          .then((response) => {
+            console.log(response);
+            return response.json();
+          })
+          .then(({ encoded }) => generatePDFBlob(encoded));
       };
-
       const generatePDF2 = () => {
-        fetch("/pdf2/").then((result) => console.log(result));
+        fetch("/pdf2/")
+          .then((response) => response.json())
+          .then(({ encoded }) => generatePDFBlob(encoded));
       };
-
+      const generatePDFBlob = (base64) => {
+        var byteCharacters = atob(base64);
+        var byteNumbers = new Array(byteCharacters.length);
+        for (var i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        var file = new Blob([byteArray], { type: "application/pdf;base64" });
+        var fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      };
       const generatePDF1Btn = document.getElementById("generate_1");
       const generatePDF2Btn = document.getElementById("generate_2");
 
