@@ -22,13 +22,13 @@
     <div class="hidden-charts-container">
       <div class="hidden-charts-cover"></div>
       <div>
-        <canvas id="chart_1"></canvas>
+        <canvas id="bar_chart"></canvas>
       </div>
       <div>
-        <canvas id="chart_2"></canvas>
+        <canvas id="horizontal_bar_chart"></canvas>
       </div>
       <div>
-        <canvas id="chart_3"></canvas>
+        <canvas id="pie_chart"></canvas>
       </div>
     </div>
 
@@ -106,7 +106,7 @@
           },
         };
 
-        var myChart = new Chart(document.getElementById("chart_3"), config);
+        var myChart = new Chart(document.getElementById("pie_chart"), config);
         return myChart;
       };
 
@@ -138,7 +138,10 @@
           },
         };
 
-        var myChart = new Chart(document.getElementById("chart_2"), config);
+        var myChart = new Chart(
+          document.getElementById("horizontal_bar_chart"),
+          config
+        );
         return myChart;
       };
 
@@ -196,7 +199,7 @@
           },
         };
 
-        var myChart = new Chart(document.getElementById("chart_1"), config);
+        var myChart = new Chart(document.getElementById("bar_chart"), config);
         return myChart;
       };
 
@@ -213,24 +216,25 @@
       };
 
       let dataForCharts = "";
-      let chart_1ToBase64 = "";
-      let chart_2ToBase64 = "";
-      let chart_3ToBase64 = "";
+      let bar_chartToBase64 = "";
+      let horizontal_bar_chartToBase64 = "";
+      let pie_chartToBase64 = "";
 
       getDataForCharts().then((data) => {
         dataForCharts = data;
-        chart_1ToBase64 = generateBarChart(dataForCharts);
-        chart_2ToBase64 = generateHorizontalBarChart(dataForCharts);
-        chart_3ToBase64 = generatePieChart(dataForCharts);
+        bar_chartToBase64 = generateBarChart(dataForCharts);
+        horizontal_bar_chartToBase64 =
+          generateHorizontalBarChart(dataForCharts);
+        pie_chartToBase64 = generatePieChart(dataForCharts);
       });
 
-      const generatePDF1 = (chart_1, chart_2, chart_3) => {
+      const generatePDF1 = (bar_chart, horizontal_bar_chart, pie_chart) => {
         fetch("/pdf/", {
           method: "POST",
           body: JSON.stringify({
-            chart_1: chart_1,
-            chart_2: chart_2,
-            chart_3: chart_3,
+            bar_chart: bar_chart,
+            horizontal_bar_chart: horizontal_bar_chart,
+            pie_chart: pie_chart,
           }),
         }).then((result) => console.log("POST result: ", result));
       };
@@ -244,9 +248,9 @@
 
       generatePDF1Btn.addEventListener("click", () =>
         generatePDF1(
-          chart_1ToBase64.toBase64Image(),
-          chart_2ToBase64.toBase64Image(),
-          chart_3ToBase64.toBase64Image()
+          bar_chartToBase64.toBase64Image(),
+          horizontal_bar_chartToBase64.toBase64Image(),
+          pie_chartToBase64.toBase64Image()
         )
       );
       generatePDF2Btn.addEventListener("click", generatePDF2);
