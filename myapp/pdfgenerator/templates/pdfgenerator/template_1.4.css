@@ -18,21 +18,26 @@ body {
   color: gray;
 }
 
+.title {
+  color: #021c52;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
 .img-container {
   width: 100%;
   display: flex;
-  justify-content: center;
+  padding-top: 24px;
+  padding-left: 64px;
 }
 
-.chart-img-pie {
-  object-fit: contain;
-  width: 600px;
-  height: 300px;
+.chart-horizontal-img {
+  height: 400px;
 }
 
-.chart-img-horizontal {
-  object-fit: contain;
-  width: 450px;
+.chart-pie-img {
+  height: 400px;
+  margin-left: -250px;
 }
 
 .charts-container {
@@ -40,12 +45,19 @@ body {
   justify-content: space-between;
 }
 
-.chart-box {
+.chart-box-horizontal {
   border: 1px solid lightgray;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  width: 450px;
+  margin-bottom: 100px;
+}
+
+.chart-box-pie {
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
 }
 
 .chart-box__title {

@@ -19,17 +19,17 @@
     </div>
     <p class="note">PDFs are saved under /pdfs directory.</p>
 
-    <!-- TODO: Is there a way to generate charts without rendering them to HTML template (display: hidden here would prevent them from appearing in PDF template) -->
-    <div>
-      <canvas id="chart_1"></canvas>
-    </div>
-
-    <div>
-      <canvas id="chart_2"></canvas>
-    </div>
-
-    <div>
-      <canvas id="chart_3"></canvas>
+    <div class="hidden-charts-container">
+      <div class="hidden-charts-cover"></div>
+      <div>
+        <canvas id="chart_1"></canvas>
+      </div>
+      <div>
+        <canvas id="chart_2"></canvas>
+      </div>
+      <div>
+        <canvas id="chart_3"></canvas>
+      </div>
     </div>
 
     <script
@@ -125,12 +125,10 @@
             },
           ],
         };
-
         const config = {
           type: "pie",
           data: data,
           options: {
-            responsive: true,
             maintainAspectRatio: false,
             plugins: {
               legend: {
