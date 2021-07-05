@@ -18,6 +18,7 @@
       </div>
     </div>
     <div class="hidden-charts-container">
+      <div class="hidden-charts-cover"></div>
       <div>
         <canvas id="bar_chart"></canvas>
       </div>
@@ -239,11 +240,13 @@
           })
           .then(({ encoded }) => generatePDFBlob(encoded));
       };
+
       const generatePDF2 = () => {
         fetch("/pdf2/")
           .then((response) => response.json())
           .then(({ encoded }) => generatePDFBlob(encoded));
       };
+
       const generatePDFBlob = (base64) => {
         var byteCharacters = atob(base64);
         var byteNumbers = new Array(byteCharacters.length);
@@ -255,7 +258,9 @@
         var fileURL = URL.createObjectURL(file);
         window.open(fileURL);
       };
+
       const generatePDF1Btn = document.getElementById("generate_1");
+
       const generatePDF2Btn = document.getElementById("generate_2");
 
       generatePDF1Btn.addEventListener("click", () =>
@@ -265,6 +270,7 @@
           pie_chartToBase64.toBase64Image()
         )
       );
+
       generatePDF2Btn.addEventListener("click", generatePDF2);
     </script>
   </body>

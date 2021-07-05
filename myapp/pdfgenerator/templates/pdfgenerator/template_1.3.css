@@ -24,23 +24,6 @@ body {
   margin-bottom: 8px;
 }
 
-.img-container {
-  width: 100%;
-  display: flex;
-  padding-top: 24px;
-  padding-left: 64px;
-}
-
-.chart-img {
-  height: 400px;
-  object-fit: contain;
-}
-
-.charts-container {
-  display: flex;
-  justify-content: space-between;
-}
-
 .chart-box {
   border: 1px solid lightgray;
   display: flex;
@@ -55,4 +38,16 @@ body {
   margin: 0;
   font-weight: 600;
   padding: 16px;
+}
+
+.img-container {
+  width: 100%;
+  display: flex;
+  padding-top: 24px;
+  padding-left: 64px;
+}
+
+.chart-img {
+  height: 400px;
+  object-fit: contain;
 }
